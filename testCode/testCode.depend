@@ -1,6 +1,11 @@
 # depslib dependency file v1.0
-1478994938 source:/home/roliveira/Documents/leaves-classification/testCode/main.cpp
+1479256649 source:/home/roliveira/Documents/leaves-classification/testCode/main.cpp
+	<stdio.h>
+	<iostream>
 	<opencv2/core/core.hpp>
 	<opencv2/imgproc/imgproc.hpp>
 	<opencv2/highgui/highgui.hpp>
+	"opencv2/features2d/features2d.hpp"
+	"opencv2/calib3d/calib3d.hpp"
+	"opencv2/nonfree/nonfree.hpp"
 
