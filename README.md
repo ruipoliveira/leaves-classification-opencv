@@ -1,2 +1,2 @@
 # leaves-classification-opencv
-Projecto de Visão por Computador 2016
+Computer Vision Project 2016
