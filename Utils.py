@@ -228,51 +228,37 @@ def get_corner_points(img, maxFeat):
 
 #make sure that img was read as a grayscale image
 def get_binary_image(img):
-	img = cv2.medianBlur(img,5)
+
+
+	#img = cv2.medianBlur(img,5)
 	#ret,th1 = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
-	return cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
+	return img #cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
 	
 
-def get_binary_image_contours(image):
-	image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 45, 0)    
+def get_binary_image_contours(imgray):
+	#image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 45, 0)    
 
-	print "get_binary_image_contours"
-	#print image
+
+	ret,thresh = cv2.threshold(imgray,127,255,1)
+
+	image,contours, hierarchy = cv2.findContours(thresh,1,2)
+
+	print len(image)
+	#contours=contours[1::]
+	mask = zeros(imgray.shape[:2], uint8)
+
+	cv2.drawContours(mask,contours,-1,(255,0,0),3)
+
+
 
 	# Perform morphology
-	se = ones((7,7), dtype='uint8')
-	image_close = cv2.morphologyEx(image, cv2.MORPH_CLOSE, se)
-
-	# Your code now applied to the closed image
-	im2, contours, hierarchy = cv2.findContours(image_close, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-	mask = zeros(image.shape[:2], uint8)
-
-	#ctr = numpy.array(cnt).reshape((-1,1,2)).astype(numpy.int32)
-	#cv2.drawContours(mask, [ctr], 0, (0, 255, 0), -1)
-
-	#cv2.drawContours(mask, cnt, -1, 255, -1)
-	
+	#se = ones((4,4), dtype='uint8')
+	#image_close = cv2.morphologyEx(image, cv2.MORPH_CLOSE, se)
 
 
-	
-	#cv2.drawContours(mask, cnt, -1, 255, -1)
 
-	#ctr = numpy.array(cnt).reshape((-1,1,2)).astype(numpy.int32)
-
-
-	#cv2.drawContours(mask, ctr, -1, (0, 255, 0), -1)
-
-
-	cv2.drawContours(mask, contours, -1, 255, -1)
-
-
-	#cv2.drawContours(im,contours,-1,(255,255,0),3)
-	#cv2.imshow("Keypoints", im)
-	cv2.waitKey(0)
-
-
-	print "MASK"
-	print mask
+	#print "MASK"
+	#print mask
 
 	
 	return mask

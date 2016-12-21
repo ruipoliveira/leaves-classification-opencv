@@ -7,10 +7,6 @@ from FeatureExtractors import *
 
 #Expected Input: python Leaves_Classifier_final.py mode classification_type classifier feature_extractor 
 
-#modes
-standard = 'st'
-dynamic = 'd'
-modes = [standard, dynamic]
 
 #classification_type
 genus = 'g'
@@ -30,48 +26,30 @@ feature_extractors = [all_features, no_moments_features]
 #Variables
 dynamic_input_dir = 'Dynamic_Input'
 training_tables = 'Data/Training_Tables'
-full_table = training_tables + '/full_table.csv'
-full_table_genus = training_tables + '/full_table_genus.csv'
-partial_table = training_tables + '/partial_table.csv'
-partial_table_genus = training_tables + '/partial_table_genus.csv'
-
+full_table = training_tables + '/nossa_full_table.csv'
+partial_table = training_tables + '/nossa_partial_table.csv'
 
 
 #Default Values
-default_mode = dynamic
-default_classification_type = genus
-default_classifier = svm
 default_feature_extractor = no_moments_features
 
 
 def read_user_input():
-	mode = None
-	classification_type = None
-	classifier = None
+	mode = 'd'
+	classification_type = 's'
+	classifier = 'svm'
 	feature_extractor = None
 	
 	#Set default values
 	if len(sys.argv) == 1:
-		mode = default_mode
-		classification_type = default_classification_type
-		classifier = default_classifier
 		feature_extractor = default_feature_extractor
-	
 	else:
-		mode = sys.argv[1]
-		classification_type = sys.argv[2]
-		classifier = sys.argv[3]
-		feature_extractor = sys.argv[4]
+		feature_extractor = sys.argv[1]
 	
 	return (mode, classification_type, classifier, feature_extractor)
 
 def get_classifier(which_classifier):
-	classifier = None
-	
-	if which_classifier == nn:
-		classifier = NN_Classifier()
-	else:
-		classifier = SVC_Classifier()
+	classifier = SVC_Classifier()
 		
 	return classifier
 
@@ -114,48 +92,26 @@ def get_test_data(feature_extractor):
 		
 			
 
-def get_data(mode, feature_extractor, classification_type):
+def get_data(feature_extractor):
 	data = None
 	train_data = None
 	test_data = None
 	
 	print "asdsad"
+	
+	if feature_extractor == all_features:
+		#do all features
+		data = read_kaggle_training_table(full_table)
+		#print data 
+		
+	elif feature_extractor == no_moments_features:
+		#do no moments features
+		data = read_kaggle_training_table(partial_table)
+		#print data 
 
-	if classification_type == genus:
-		#do genus
-		if feature_extractor == all_features:
-			#do all features
-			data = read_kaggle_training_table(full_table_genus, genus_to_number)
-			print "AQUII" 
-			#print data 
+	train_data = data
+	test_data = get_test_data(feature_extractor)	
 
-		elif feature_extractor == no_moments_features:
-			#do no moments features
-			data = read_kaggle_training_table(partial_table_genus, genus_to_number)
-			print "AQUII" 
-			#print data 
-	elif classification_type == species:
-		#do species
-		#do genus
-		if feature_extractor == all_features:
-			#do all features
-			data = read_kaggle_training_table(full_table)
-			print "AQUII" 
-			#print data 
-			
-		elif feature_extractor == no_moments_features:
-			#do no moments features
-			data = read_kaggle_training_table(partial_table)
-			print "AQUII" 
-			#print data 
-
-	if mode == dynamic:
-		train_data = data
-		test_data = get_test_data(feature_extractor)	
-	#standard
-	elif mode == standard:
-		#do standard
-		train_data, test_data = split_data(data, 0.80)
 	
 	return (train_data, test_data)
 
@@ -181,18 +137,11 @@ def display_results(prediction_data, mode, classification_type):
 	ids = prediction_data.get_table_ids()
 	S = None
 	
-	if mode == dynamic:
-		print '------Predictions for images inside ' + dynamic_input_dir + '--------------'
-		for i in range(len(ids)):
-			print str(ids[i]) + ': ' + str(predictions[i])
-	elif mode == standard:
-		print '------Overall results:-----------------------------------------------'
-		if classification_type == genus:
-			S = Statistics(prediction_data, genus_to_number)
-			print S.get_statistics()
-		elif classification_type == species:
-			S = Statistics(prediction_data, label_to_number)
-			print S.get_statistics()
+
+	print '------Predictions for images inside ' + dynamic_input_dir + '--------------'
+	for i in range(len(ids)):
+		print str(ids[i]) + ': ' + str(predictions[i])
+	
 		
 def display_input_prameters(mode, classification_type, classifier, feature_extractor):
 	print '++++++++++++++++++++++++Parameters+++++++++++++++++++++++'
@@ -208,7 +157,7 @@ display_input_prameters(mode, classification_type, classifier, feature_extractor
 
 classifier = get_classifier(classifier)
 
-(train_data, test_data) = get_data(mode, feature_extractor, classification_type)
+(train_data, test_data) = get_data( feature_extractor)
 
 prediction_data = classify(classifier, train_data, test_data)
 
