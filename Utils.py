@@ -14,7 +14,6 @@ from glob import *
 import cv2
 from PIL import Image
 from sys import*
-import matplotlib.pyplot as plt
 import pylab as plt
 
 #---------------------------------------Variables----------------------------------------
@@ -41,43 +40,10 @@ sample_color_image_1 = 'Data/Google_Images/1.jpg'
 sample_color_image_2 = 'Data/Google_Images/2.jpg'
 sample_color_image_3 = 'Data/Google_Images/3.jpg'
 
-colors = {'Rhododendron':'black', 'Zelkova':'dimgrey', 'Prunus':'darkgrey', 'Magnolia':'lightgray', 'Castanea':'rosybrown', 'Liriodendron':'lightcoral', 'Phildelphus':'maroon', 'Morus':'red', 'Crataegus':'salmon', 'Sorbus':'orangered', 'Lithocarpus':'sienna', 'Alnus':'saddlebrown', 'Populus':'palevioletred', 'Arundinaria':'pink', 'Ulmus':'magenta', 'Ginkgo':'m', 'Callicarpa':'purple', 'Ilex':'darkmagenta', 'Betula':'b', 'Eucalyptus':'navy', 'Viburnum':'royalblue', 'Cornus':'skyblue', 'Pterocarya':'steelblue', 'Cercis':'aqua', 'Cotinus':'c', 'Celtis':'teal', 'Tilia':'green', 'Olea':'lime', 'Fagus':'seagreen', 'Quercus':'sage', 'Liquidambar':'y', 'Salix':'khaki', 'Cytisus':'chartreuse', 'Acer':'yellow'}
-
-
-genus_to_number = {'Rhododendron':0, 'Zelkova':1, 'Prunus':2, 'Magnolia':3, 'Castanea':4, 'Liriodendron':5, 'Phildelphus':6, 'Morus':7, 'Crataegus':8, 'Sorbus':9, 'Lithocarpus':10, 'Alnus':11, 'Populus':12, 'Arundinaria':13, 'Ulmus':14, 'Ginkgo':15, 'Callicarpa':16, 'Ilex':17, 'Betula':18, 'Eucalyptus':19, 'Viburnum':20, 'Cornus':21, 'Pterocarya':22, 'Cercis':23, 'Cotinus':24, 'Celtis':25, 'Tilia':26, 'Olea':27, 'Fagus':28, 'Quercus':29, 'Liquidambar':30, 'Salix':31, 'Cytisus':32, 'Acer':33}
-
-
-label_to_number = {'Populus_Nigra': 69, 'Acer_Saccharinum': 41, 'Quercus_Pontica': 12, \
-'Alnus_Viridis': 86, 'Olea_Europaea': 88, 'Acer_Rufinerve': 58, 'Acer_Rubrum': 79, \
-'Cotinus_Coggygria': 33, 'Quercus_Castaneifolia': 76, 'Cornus_Macrophylla': 73, \
-'Quercus_Pyrenaica': 38, 'Quercus_Rubra': 7, 'Quercus_Semecarpifolia': 49, \
-'Quercus_Afares': 13, 'Quercus_Pubescens': 18, 'Acer_Pictum': 57, 'Ginkgo_Biloba': 51, \
-'Quercus_Suber': 45, 'Quercus_x_Turneri': 75, 'Salix_Fragilis': 9, 'Alnus_Cordata': 68, \
-'Quercus_Agrifolia': 56, 'Sorbus_Aria': 98, 'Acer_Opalus': 0, 'Alnus_Maximowiczii': 55, \
-'Tilia_Oliveri': 48, 'Quercus_Trojana': 20, 'Quercus_Phellos': 53, 'Tilia_Tomentosa': 3, \
-'Quercus_Greggii': 44, 'Rhododendron_x_Russellianum': 29, 'Quercus_Rhysophylla': 92, \
-'Quercus_Crassifolia': 35, 'Alnus_Sieboldiana': 21, 'Castanea_Sativa': 93, \
-'Callicarpa_Bodinieri': 39, 'Quercus_Shumardii': 91, 'Zelkova_Serrata': 10, \
-'Eucalyptus_Urnigera': 81, 'Liriodendron_Tulipifera': 27, 'Fagus_Sylvatica': 15, \
-'Betula_Austrosinensis': 11, 'Crataegus_Monogyna': 74, 'Populus_Adenopoda': 19, \
-'Acer_Mono': 72, 'Prunus_Avium': 43, 'Acer_Circinatum': 62, 'Magnolia_Heptapeta': 71, \
-'Quercus_Texana': 50, 'Ilex_Aquifolium': 61, 'Lithocarpus_Cleistocarpus': 59, \
-'Quercus_Coccifera': 14, 'Quercus_Kewensis': 36, 'Populus_Grandidentata': 78, \
-'Cornus_Controversa': 37, 'Quercus_Vulcanica': 85, 'Cytisus_Battandieri': 28, \
-'Celtis_Koraiensis': 34, 'Acer_Capillipes': 70, 'Quercus_Dolicholepis': 46, \
-'Arundinaria_Simonii': 23, 'Pterocarya_Stenoptera': 1, 'Quercus_Canariensis': 6, \
-'Alnus_Rubra': 30, 'Quercus_Cerris': 64, 'Quercus_Ellipsoidalis': 89, \
-'Quercus_Palustris': 54, 'Quercus_Ilex': 22, 'Prunus_X_Shmittii': 42, \
-'Quercus_Coccinea': 63, 'Quercus_Variabilis': 4, 'Lithocarpus_Edulis': 77, \
-'Quercus_x_Hispanica': 90, 'Magnolia_Salicifolia': 5, 'Phildelphus': 16, \
-'Acer_Platanoids': 24, 'Tilia_Platyphyllos': 67, 'Acer_Palmatum': 17, \
-'Eucalyptus_Glaucescens': 31, 'Ilex_Cornuta': 47, 'Betula_Pendula': 87, \
-'Cercis_Siliquastrum': 32, 'Quercus_Phillyraeoides': 25, 'Quercus_Alnifolia': 40, \
-'Quercus_Brantii': 8, 'Viburnum_x_Rhytidophylloides': 60, 'Quercus_Chrysolepis': 65, \
-'Quercus_Nigra': 95, 'Morus_Nigra': 84, 'Cornus_Chinensis': 26, \
-'Ulmus_Bergmanniana': 94,'Liquidambar_Styraciflua': 52, 'Eucalyptus_Neglecta': 66, \
-'Quercus_Infectoria_sub': 97, 'Quercus_Hartwissiana': 2, 'Viburnum_Tinus': 83, \
-'Quercus_Imbricaria': 80, 'Quercus_Crassipes': 82, 'Salix_Intergra': 96}
+label_to_number = {'Populus_Nigra': 69, 'Quercus_Rubra': 7, 'Ginkgo_Biloba': 51,\
+					'Tilia_Tomentosa': 3, 'Fagus_Sylvatica': 15,\
+ 					'Prunus_Avium': 43, 'Ilex_Aquifolium': 61,\
+					'Acer_Platanoids': 24, 'Acer_Palmatum': 17, 'Liquidambar_Styraciflua': 52}
 
 #---------------------------------------Math Tools---------------------------------------
 #Notice: Since we started using numpy arrays instead of dictionaries to represent vectors
@@ -119,19 +85,6 @@ def norm(v):
 	norm = sqrt(sum(v**2))
 	return norm
 
-#------------------------------------Ploting Tools----------------------------------
-def plot_points(xs, ys, labels, filename=None):
-	
-	
-	for i in range(len(xs)):
-		plt.scatter(xs[i],ys[i], c=colors[labels[i]], label=labels[i])
-	
-	plt.legend()
-	plt.grid(True)
-	if filename == None:
-		plt.show()
-	else:
-		plt.savefig(filename+'png')
 
 #-------------------------------------Image Processing Tools-----------------------------
 def save_image(arr, name):
@@ -331,6 +284,7 @@ def read_kaggle_test_table(table_path = test_kaggle_table):
 	feature_vectors = []
 	ids = []
 	(feature_names, feature_vectors_str) = read_excel_table(table_path)
+
 	feature_names = feature_names[1:len(feature_names)]
 	
 	for row in feature_vectors_str:
@@ -352,14 +306,22 @@ def read_kaggle_training_table(table_path = train_kaggle_table, to_number=None):
 	ids = []
 	numeric_labels = []
 	(feature_names, feature_vectors_str) = read_excel_table(table_path)
+
 	feature_names = feature_names[2:len(feature_names)]
+
 
 	for row in feature_vectors_str:
 		labels.append(row[1])
 		if to_number == None:
 			numeric_labels.append(label_to_number[row[1]])
+			#print "entrei if"
 		else:
 			numeric_labels.append(to_number[row[1]])
+			#print "entrei elese"
+
+
+		#print numeric_labels
+
 		ids.append(row[0])
 		row = row[2:len(row)]
 		
@@ -370,6 +332,7 @@ def read_kaggle_training_table(table_path = train_kaggle_table, to_number=None):
 	data.set_labels(array(labels))
 	data.set_table_ids(array(ids))
 	data.set_numeric_labels(array(numeric_labels))	
+
 
 	return data
 

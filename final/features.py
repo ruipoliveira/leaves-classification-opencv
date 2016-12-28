@@ -3,6 +3,7 @@ from math import *
 from numpy import *
 import numpy as numpy
 from glob import *
+import csv
 import cv2
 from PIL import Image
 from sys import*
@@ -59,7 +60,6 @@ def initialProcessingAndGetContours(path):
 
 	return mask
 
-#nao e boa ideia!!
 def get_image_area(image):
 	nonzero = count_nonzero(image)
 	return nonzero
@@ -70,18 +70,29 @@ images = []
 
 for f in files:
 	image = initialProcessingAndGetContours(f)
-	#display_image(image)
+
 	corners = get_corner_points(image,100)
 	moments = get_moments(image)
-	print get_image_area(image)
-	#print get_edge_points(image)
-
-	display_image(image)
-
-
-	#break; 
+	#print moments
+	#print corners 
+	#display_image(image)
+	#print get_image_area(image)
+	print len(get_edge_points(image))
+	#display_image(image)
 	#print get_solidity(image)
+	#break; 
 	
 
 
+	#break; 
+	
 
+a = [1,2,3]
+b = [1,2,3] 
+res = [a,b]
+
+#Assuming res is a flat list
+with open("outputs.csv", "w") as output:
+    writer = csv.writer(output, lineterminator='\n')
+    for val in res:
+        writer.writerow([val])  
