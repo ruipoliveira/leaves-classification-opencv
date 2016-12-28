@@ -42,7 +42,7 @@ sample_color_image_3 = 'Data/Google_Images/3.jpg'
 
 label_to_number = {'Populus_Nigra': 69, 'Quercus_Rubra': 7, 'Ginkgo_Biloba': 51,\
 					'Tilia_Tomentosa': 3, 'Fagus_Sylvatica': 15,\
- 					'Prunus_Avium': 43, 'Ilex_Aquifolium': 61,\
+ 					'Prunus_Avium': 43, 'Ilex_Aquifolium': 61, 'Castanea_Sativa': 44,\
 					'Acer_Platanoids': 24, 'Acer_Palmatum': 17, 'Liquidambar_Styraciflua': 52}
 
 #---------------------------------------Math Tools---------------------------------------

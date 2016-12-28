@@ -17,7 +17,7 @@ feature_extractors = [all_features, no_moments_features]
 #Variables
 dynamic_input_dir = 'Dynamic_Input'
 training_tables = 'Data/Training_Tables'
-full_table = training_tables + '/nossa_full_table.csv'
+full_table = "output.csv" #training_tables + '/nossa_full_table.csv'
 partial_table = training_tables + '/nossa_partial_table.csv'
 
 
@@ -150,5 +150,5 @@ prediction_data = classify(classifier, train_data, test_data)
 
 print prediction_data
 
-display_results(prediction_data, mode, classification_type)
+display_results(prediction_data, mode, classification_type)	
 #display_image(prediction_data.get_images_binary()[0])

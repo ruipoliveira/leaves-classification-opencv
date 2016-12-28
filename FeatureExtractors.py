@@ -143,3 +143,21 @@ class Feature_Extractors:
 		print features
 
 		return (feature_names, features)
+
+	def all_feature_extractor_traning(self, image, id, label):
+		(feature_names1, features1) = self.corner_count_feature_extractor(image)
+		(feature_names2, features2) = self.length_width_ratio_feature_extractor(image)
+		(feature_names3, features3) = self.perimeter_area_ratio_feature_extractor(image)
+		(feature_names4, features4) = self.ratio_of_areas_feature_extractor(image)
+		(feature_names5, features5) = self.solidity_feature_extractor(image)
+		(feature_names6, features6) = self.moments_feature_extractor(image)
+		(feature_names7, features7) = self.hu_momments_feature_extractor(image)
+
+		features = array(list([id, label])+list(features1)+list(features2)+list(features3)+list(features4) + \
+		list(features5)+list(features6)+list(features7))
+		
+		feature_names = array( list(["id","label"])+ list(feature_names1)+list(feature_names2)+list(feature_names3) + \
+		list(feature_names4) + list(feature_names5) + list(feature_names6) + list(feature_names7))
+
+		return (feature_names, features)
+
