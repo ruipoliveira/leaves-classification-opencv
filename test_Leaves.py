@@ -15,7 +15,7 @@ no_moments_features = 'nm'
 feature_extractors = [all_features, no_moments_features]
 
 #Variables
-dynamic_input_dir = 'Dynamic_Input'
+dynamic_input_dir = 'Test_Leves'
 training_tables = 'Data/Training_Tables'
 full_table = "output.csv" #training_tables + '/nossa_full_table.csv'
 partial_table = training_tables + '/nossa_partial_table.csv'
