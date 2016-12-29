@@ -139,10 +139,8 @@ class Feature_Extractors:
 		feature_names = array(list(feature_names1)+list(feature_names2)+list(feature_names3) + \
 		list(feature_names4) + list(feature_names5) + list(feature_names6) + list(feature_names7))
 
-		print feature_names
-		print features
-
 		return (feature_names, features)
+
 
 	def all_feature_extractor_traning(self, image, id, label):
 		(feature_names1, features1) = self.corner_count_feature_extractor(image)

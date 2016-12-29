@@ -36,14 +36,10 @@ sample_binary_image_762 = 'Data/Dataset1/data_binary_Kaggle/762.jpg'
 sample_binary_image_5 = 'Data/Dataset1/data_binary_Kaggle/5.jpg'
 sample_binary_image_50 = 'Data/Dataset1/data_binary_Kaggle/50.jpg'
 
-sample_color_image_1 = 'Data/Google_Images/1.jpg'
-sample_color_image_2 = 'Data/Google_Images/2.jpg'
-sample_color_image_3 = 'Data/Google_Images/3.jpg'
-
-label_to_number = {'Populus_Nigra': 69, 'Quercus_Rubra': 7, 'Ginkgo_Biloba': 51,\
-					'Tilia_Tomentosa': 3, 'Fagus_Sylvatica': 15,\
- 					'Prunus_Avium': 43, 'Ilex_Aquifolium': 61, 'Castanea_Sativa': 44,\
-					'Acer_Platanoids': 24, 'Acer_Palmatum': 17, 'Liquidambar_Styraciflua': 52}
+label_to_number = {'Populus_Nigra': 69, 'Quercus_Rubra': 7, 'Ginkgo_Biloba': 51, 'Acer_Capillipes' : 2,\
+					'Tilia_Tomentosa': 3, 'Fagus_Sylvatica': 15, 'Olea_Europaea':1, 'Quercus_Shumardii':11, \
+ 					'Prunus_Avium': 43, 'Ilex_Aquifolium': 61, 'Castanea_Sativa': 44, 'Acer_Circinatum' : 12, \
+					'Acer_Platanoids': 24, 'Acer_Palmatum': 17, 'Liquidambar_Styraciflua': 52, 'Quercus_Vulcanica':122}
 
 #---------------------------------------Math Tools---------------------------------------
 #Notice: Since we started using numpy arrays instead of dictionaries to represent vectors
@@ -91,7 +87,7 @@ def save_image(arr, name):
 	scipy.misc.imsave(name, arr)	
 
 def get_cnt(img):
-	ret,thresh = cv2.threshold(img,127,255,0)
+	ret,thresh = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
 	img,contours,hierarchy = cv2.findContours(thresh, 1, 2)
 
 	cnt = contours[0]

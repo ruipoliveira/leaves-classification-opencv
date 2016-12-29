@@ -64,7 +64,7 @@ def get_test_data(feature_extractor, dynamic_input_dir):
 
 					wr.writerow(features)
 
-				elif feature_extractor == no_moments_features:
+				elif feature_extractor == without_moments_features:
 					print "without moments"
 					(feature_names, features) = f_e.all_five_feature_extractor_traning(b_im,id, label)
 					id = id + 1 
@@ -77,7 +77,7 @@ def get_test_data(feature_extractor, dynamic_input_dir):
 	return (feature_names, features) 
 		
 
-def display_input_prameters(mode, classification_type, classifier, feature_extractor):
+def display_input_prameters(feature_extractor):
 	print '++++++++++++++++++++++++Parameters+++++++++++++++++++++++'
 	print 'Feature Extractor: ' + feature_extractor
 	print '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
