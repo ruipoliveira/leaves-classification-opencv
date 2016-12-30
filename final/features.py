@@ -65,19 +65,39 @@ def get_image_area(image):
 	return nonzero
 
 
-files = glob('/home/roliveira/Documents/leaves-classification/Data/Dataset1/data_binary_UCI/Liquidambar_Styraciflua/*.jpg')
+files = glob('/home/roliveira/Documents/Sorbus aucuparia/*.tif')
 images = []	
-
+i =0 
 for f in files:
-	image = initialProcessingAndGetContours(f)
+	
+	#image = initialProcessingAndGetContours(f)
+	img = cv2.imread(f) 
 
-	corners = get_corner_points(image,100)
-	moments = get_moments(image)
+	imgray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+	blur = cv2.GaussianBlur(imgray,(5,5),0)
+
+	ret,thresh = cv2.threshold(blur,0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)
+	
+	se1 = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
+	se2 = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
+
+	#image_close = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, se1)
+	imagef = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, se2)
+
+	print 'sorbus/'+str(i)+'.png' 
+	cv2.imwrite('sorbus/'+str(i)+'.png' ,imagef)
+	i=i+1
+	cv2.destroyAllWindows()
+
+	#display_image(imagef)
+
+	#corners = get_corner_points(image,100)
+	#moments = get_moments(image)
 	#print moments
 	#print corners 
 	#display_image(image)
 	#print get_image_area(image)
-	print len(get_edge_points(image))
+	#print len(get_edge_points(image))
 	#display_image(image)
 	#print get_solidity(image)
 	#break; 
@@ -86,13 +106,3 @@ for f in files:
 
 	#break; 
 	
-
-a = [1,2,3]
-b = [1,2,3] 
-res = [a,b]
-
-#Assuming res is a flat list
-with open("outputs.csv", "w") as output:
-    writer = csv.writer(output, lineterminator='\n')
-    for val in res:
-        writer.writerow([val])  
