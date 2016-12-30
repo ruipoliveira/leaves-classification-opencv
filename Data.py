@@ -30,7 +30,6 @@ class Data:
 		return self.labels
 		
 	
-	#numeric_labels = [l1,l2,...,ln]
 	def set_numeric_labels(self, numeric_labels):
 		self.length = len(numeric_labels)
 		self.numeric_labels = numeric_labels
@@ -38,17 +37,14 @@ class Data:
 	def get_numeric_labels(self):
 		return self.numeric_labels
 		
-	#predictions = [p1, p2, ...., pn]
+
 	def set_predictions(self, predictions):
 		self.length = len(predictions)
 		self.predictions = predictions	
 	
 	def get_predictions(self):
 		return self.predictions
-		
-		
-	#images_binary = [I1, I2, ..., In]
-	#where I is a 2D cv2 array (Binary image)
+	
 	def set_images_binary(self, images_binary):
 		self.length = len(images_binary)
 		self.images_binary = images_binary
@@ -56,9 +52,7 @@ class Data:
 	def get_images_binary(self):
 		return self.images_binary
 
-	
-	#images_color = [I1, I2, ..., In]
-	#where I is a 3D cv2 array (RGB image)
+
 	def set_images_color(self, images_color):
 		self.length =len(images_color)
 		self.images_color = images_color

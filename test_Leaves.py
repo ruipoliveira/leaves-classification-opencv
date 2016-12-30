@@ -49,7 +49,7 @@ def get_test_data(feature_extractor):
 
 		b_im = get_binary_image_contours(im)
 		
-		display_image(b_im)
+		#display_image(b_im)
 		#print b_im 
 		#print "*******************"
 
@@ -58,7 +58,7 @@ def get_test_data(feature_extractor):
 		#save_image(b_im, str(m)+'.jpg')#delete this
 		#m+=1
 		if feature_extractor == all_features:
-			print all_features
+			#print all_features
 			(feature_names, features) = f_e.all_feature_extractor(b_im)
 			feature_vecs.append(features)
 		elif feature_extractor == no_moments_features:
@@ -78,7 +78,7 @@ def get_data(feature_extractor):
 	train_data = None
 	test_data = None
 	
-	print feature_extractor
+	#print feature_extractor
 	
 	if feature_extractor == all_features:
 		#do all features
@@ -91,7 +91,7 @@ def get_data(feature_extractor):
 		#print data 
 
 	train_data = data
-	print train_data
+	#print train_data
 
 	test_data = get_test_data(feature_extractor) 
 
