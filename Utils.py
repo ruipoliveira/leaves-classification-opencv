@@ -36,7 +36,7 @@ sample_binary_image_762 = 'Data/Dataset1/data_binary_Kaggle/762.jpg'
 sample_binary_image_5 = 'Data/Dataset1/data_binary_Kaggle/5.jpg'
 sample_binary_image_50 = 'Data/Dataset1/data_binary_Kaggle/50.jpg'
 
-label_to_number = {'Populus_Nigra': 69, 'Quercus_Rubra': 7, 'Ginkgo_Biloba': 51, 'Acer_Capillipes' : 2,\
+label_to_number = {'Populus_Nigra': 69, 'Acer_platanoides':222, 'Sorbus aucuparia': 1211, 'Quercus_Rubra': 7, 'Ginkgo_Biloba': 51, 'Acer_Capillipes' : 2,\
 					'Tilia_Tomentosa': 3, 'Fagus_Sylvatica': 15, 'Olea_Europaea':1, 'Quercus_Shumardii':11, \
  					'Prunus_Avium': 43, 'Ilex_Aquifolium': 61, 'Castanea_Sativa': 44, 'Acer_Circinatum' : 12, \
 					'Acer_Platanoids': 24, 'Acer_Palmatum': 17, 'Liquidambar_Styraciflua': 52, 'Quercus_Vulcanica':122}
