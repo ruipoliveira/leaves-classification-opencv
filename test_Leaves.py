@@ -190,6 +190,7 @@ def display_image(prediction_data):
 
 		
 def display_input_prameters(feature_extractor):
+	print(chr(27) + "[2J")
 	print '++++++++++++++++++++++++Parameters+++++++++++++++++++++++'
 	print 'Feature Extractor: ' + feature_extractor
 	print '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
