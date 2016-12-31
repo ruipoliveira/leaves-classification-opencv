@@ -84,8 +84,8 @@ for f in files:
 	#image_close = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, se1)
 	imagef = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, se2)
 
-	print 'sorbus/'+str(i)+'.png' 
-	cv2.imwrite('sorbus/'+str(i)+'.png' ,imagef)
+	print 'sorbus/'+str(i)+'.jpg' 
+	cv2.imwrite('sorbus/'+str(i)+'.jpg' ,imagef)
 	i=i+1
 	cv2.destroyAllWindows()
 

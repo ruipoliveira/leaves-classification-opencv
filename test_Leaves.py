@@ -1,9 +1,17 @@
 import sys
-
+import os
+import glob
 from Data import *
 from Classifiers import *
 from Utils import *
 from FeatureExtractors import *
+from PyQt4 import QtGui
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
+
+
+
 
 all_features = 'all'
 no_moments_features = 'nm'
@@ -122,6 +130,64 @@ def display_results(prediction_data):
 	for i in range(len(ids)):
 		print str(ids[i]) + ': ' + str(predictions[i])
 	
+
+
+def display_image(prediction_data):
+	predictions = prediction_data.get_predictions()
+	ids = prediction_data.get_table_ids()
+	S = None
+	
+	app = QtGui.QApplication(sys.argv)
+	widget = QtGui.QWidget()
+	layout = QtGui.QGridLayout()
+
+	myFont=QtGui.QFont()
+	myFont.setBold(True)
+	l1 = QLabel()
+	l1.setText("Input image")
+	l1.setFont(myFont)
+	l2 = QLabel()
+	l2.setText("Result (sample image)")
+	l2.setFont(myFont)
+
+	layout.addWidget(l1, 0, 0)
+	layout.addWidget(l2, 0, 1)
+
+	window = QtGui.QMainWindow()
+	window.setGeometry(0, 0, 40, 20)
+		
+	for i in range(len(ids)):
+		print str(ids[i]) + ': ' + str(predictions[i])
+			
+		pic1 = QtGui.QLabel(window)
+		pic1.setGeometry(1, 1, 40, 10)
+		pixmap1 = QtGui.QPixmap(os.getcwd() + str("/")+str(ids[i]))
+		pixmap21 = pixmap1.scaled(164, 164)
+		pic1.setPixmap(pixmap21)
+		layout.addWidget(pic1, i+1, 0)
+
+		pic2 = QtGui.QLabel(window)
+		pic2.setGeometry(1, 1, 40, 10)
+
+		folder = os.getcwd() + str("/Data/DataTraining/") + str(predictions[i])
+		allfiles = os.listdir(folder)
+		pathfirst = folder+ str("/")+str(allfiles[0])
+		pixmap2 = QtGui.QPixmap(pathfirst)
+
+		#pixmap = QtGui.QPixmap(folder+ str("/")+str(allfiles[0]))
+	
+		pixmap22 = pixmap2.scaled(164, 164)
+		pic2.setPixmap(pixmap22)
+		layout.addWidget(pic2, i+1, 1)
+	
+
+	widget.setWindowTitle("Leaves classification, Computer Vision 2016")
+	widget.setLayout(layout)
+	widget.show()
+	sys.exit(app.exec_())
+
+
+
 		
 def display_input_prameters(feature_extractor):
 	print '++++++++++++++++++++++++Parameters+++++++++++++++++++++++'
@@ -140,4 +206,7 @@ prediction_data = classify(classifier, train_data, test_data)
 
 
 display_results(prediction_data)
-#display_image(prediction_data.get_images_binary()[0])
+display_image(prediction_data)
+
+
+
