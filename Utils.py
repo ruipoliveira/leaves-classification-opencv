@@ -111,7 +111,8 @@ def get_edge_points(img):
 	return edges
 
 def get_corner_points(img, maxFeat):
-	#print img
+
+	print 'Extracting features in new image...'
 	#print maxFeat
 
 	feature_params = dict( maxCorners = maxFeat, qualityLevel = 0.6, minDistance = 7, blockSize = 7 )

@@ -127,7 +127,7 @@ def display_results(prediction_data):
 	
 
 	print '------Predictions for images inside ' + dynamic_input_dir + '--------------'
-	for i in range(len(ids)):
+	for i in range((len(ids)/2)-1):
 		print str(ids[i]) + ': ' + str(predictions[i])
 	
 
