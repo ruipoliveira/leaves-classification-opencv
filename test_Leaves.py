@@ -187,12 +187,14 @@ def display_image(prediction_data):
 	sys.exit(app.exec_())
 
 
-
-		
 def display_input_prameters(feature_extractor):
 	print(chr(27) + "[2J")
 	print '++++++++++++++++++++++++Parameters+++++++++++++++++++++++'
-	print 'Feature Extractor: ' + feature_extractor
+	if feature_extractor == no_moments_features: 
+		print 'Extracting Features...'
+	else: 
+		print 'Extracting Features with moments...'
+		
 	print '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
 #----------------------------------Main--------------------------------
 feature_extractor = read_user_input()

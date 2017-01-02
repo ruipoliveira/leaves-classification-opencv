@@ -140,7 +140,7 @@ def get_binary_image_contours(imgray):
 
 	image,contours, hierarchy = cv2.findContours(thresh,1,2)
 
-	print len(image)
+	#print len(image)
 	#contours=contours[1::]
 	mask = zeros(imgray.shape[:2], uint8)
 

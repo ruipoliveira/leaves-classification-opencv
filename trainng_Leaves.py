@@ -78,7 +78,7 @@ def get_test_data(feature_extractor, dynamic_input_dir):
 		
 
 def display_input_prameters(feature_extractor):
-	print(chr(27) + "[2J")
+	#print(chr(27) + "[2J")
 	print '++++++++++++++++++++++++Parameters+++++++++++++++++++++++'
 	print 'Feature Extractor: ' + feature_extractor
 	print '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
