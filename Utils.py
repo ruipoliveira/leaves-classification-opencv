@@ -23,19 +23,6 @@ train_kaggle_table = 'Data/Dataset1/data_binary_Kaggle/nosso_train.csv'
 
 kaggle_images_path = 'Data/Dataset1/data_binary_Kaggle' 
 
-sample_binary_image_367 = 'Data/Dataset1/data_binary_Kaggle/367.jpg'
-sample_binary_image_455 = 'Data/Dataset1/data_binary_Kaggle/455.jpg'
-
-sample_binary_image_1 = 'Data/Dataset1/data_binary_Kaggle/1.jpg'
-sample_binary_image_317 = 'Data/Dataset1/data_binary_Kaggle/317.jpg'
-
-sample_binary_image_2 = 'Data/Dataset1/data_binary_Kaggle/2.jpg'
-sample_binary_image_431 = 'Data/Dataset1/data_binary_Kaggle/431.jpg'
-sample_binary_image_762 = 'Data/Dataset1/data_binary_Kaggle/762.jpg'
-
-sample_binary_image_5 = 'Data/Dataset1/data_binary_Kaggle/5.jpg'
-sample_binary_image_50 = 'Data/Dataset1/data_binary_Kaggle/50.jpg'
-
 label_to_number = {'Populus_Nigra': 69, 'Acer_platanoides':222, 'Sorbus aucuparia': 1211, 'Quercus_Rubra': 7, 'Ginkgo_Biloba': 51, 'Acer_Capillipes' : 2,\
 					'Tilia_Tomentosa': 3, 'Fagus_Sylvatica': 15, 'Olea_Europaea':1, 'Quercus_Shumardii':11, \
  					'Prunus_Avium': 43, 'Ilex_Aquifolium': 61, 'Castanea_Sativa': 44, 'Acer_Circinatum' : 12, \
