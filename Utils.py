@@ -7,13 +7,9 @@ from glob import *
 import cv2
 from PIL import Image
 from sys import*
-import pylab as plt
 
 #---------------------------------------Variables----------------------------------------
 
-train_kaggle_table = 'Data/Dataset1/data_binary_Kaggle/nosso_train.csv'
-
-kaggle_images_path = 'Data/Dataset1/data_binary_Kaggle' 
 
 label_to_number = {'Populus_Nigra': 69, 'Acer_platanoides':222, 'Sorbus aucuparia': 1211, 'Quercus_Rubra': 7, 'Ginkgo_Biloba': 51, 'Acer_Capillipes' : 2,\
 					'Tilia_Tomentosa': 3, 'Fagus_Sylvatica': 15, 'Olea_Europaea':1, 'Quercus_Shumardii':11, \
@@ -87,6 +83,7 @@ def max_y_diff(img):
 
 
 def display_image(img):
+	cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
 	cv2.imshow('Image', img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()	
@@ -128,17 +125,43 @@ def get_binary_image(img):
 def get_binary_image_contours(imgray):
 	#image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 45, 0)    
 
+	#display_image(imgray)
+	ret,thresh = cv2.threshold(imgray,127,255,cv2.THRESH_BINARY_INV)
+	#display_image(thresh)
+	#se = ones((15,15), dtype='uint8')
+	#image_close = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, se)
+	
+	#display_image(image_close)
 
-	ret,thresh = cv2.threshold(imgray,127,255,1)
+	mask = zeros(imgray.shape[:2], uint8)
 
 	image,contours, hierarchy = cv2.findContours(thresh,1,2)
 
+	cv2.drawContours(mask,contours,-1,(200,200,0),3)
+
+	#display_image(mask)
+	return mask
+
+'''
+	display_image(imgray)
+
+	ret,thresh = cv2.threshold(imgray,127,255,1)
+
+
+	display_image(thresh)
+
+	image,contours, hierarchy = cv2.findContours(thresh,1,2)
+
+
+	display_image(image)
+'''
 	#print len(image)
 	#contours=contours[1::]
-	mask = zeros(imgray.shape[:2], uint8)
+	#mask = zeros(imgray.shape[:2], uint8)
 
-	cv2.drawContours(mask,contours,-1,(255,0,0),3)
+	#cv2.drawContours(mask,contours,-1,(255,0,0),3)
 
+	#display_image(mask)
 
 
 	# Perform morphology
@@ -150,8 +173,8 @@ def get_binary_image_contours(imgray):
 	#print "MASK"
 	#print mask
 
-	
-	return mask
+
+	#return mask
 
 
 def get_image_area(image):
@@ -218,7 +241,7 @@ def read_excel_table(table_path):
 
 
 #Remember that Column 2 contains the classification of the feature vector
-def read_kaggle_training_table(table_path = train_kaggle_table, to_number=None):
+def read_kaggle_training_table(table_path, to_number=None):
 	data = Data()
 	feature_vectors = []
 	labels = []
@@ -255,8 +278,7 @@ def read_kaggle_training_table(table_path = train_kaggle_table, to_number=None):
 
 	return data
 
-#image_path is the path to the image
-#returns the image as a 2D numpy array (Grayscale)
+
 def read_image_grayscale(image_path):
 	image = cv2.imread(image_path)
 	image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -264,7 +286,7 @@ def read_image_grayscale(image_path):
 	return image
 	
 
-#returns the image as a 3D numpy array (RGB)
+
 def read_image_color(image_path):
 	image = cv2.imread(image_path)
 	
