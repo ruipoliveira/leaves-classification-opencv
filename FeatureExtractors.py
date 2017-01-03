@@ -79,7 +79,7 @@ class Feature_Extractors:
 		return (feature_names, features)
 	
 	
-	def all_five_feature_extractor(self, image):
+	def no_moments_feature_extractor(self, image):
 		(feature_names1, features1) = self.corner_count_feature_extractor(image)
 		(feature_names2, features2) = self.length_width_ratio_feature_extractor(image)
 		(feature_names3, features3) = self.perimeter_area_ratio_feature_extractor(image)
@@ -127,7 +127,7 @@ class Feature_Extractors:
 		return (feature_names, features)
 
 	
-	def all_five_feature_extractor_traning(self, image,id, label):
+	def no_moments_feature_extractor_traning(self, image,id, label):
 		(feature_names1, features1) = self.corner_count_feature_extractor(image)
 		(feature_names2, features2) = self.length_width_ratio_feature_extractor(image)
 		(feature_names3, features3) = self.perimeter_area_ratio_feature_extractor(image)

@@ -9,10 +9,6 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-
-
-
-
 all_features = 'all'
 no_moments_features = 'nm'
 feature_extractors = [all_features, no_moments_features]
@@ -23,15 +19,13 @@ training_tables = 'Data/Training_Tables'
 full_table = 'output_all.csv'
 partial_table = 'output_nm.csv'
 
-
 #Default Values
 default_feature_extractor = no_moments_features
 
 
 def read_user_input():
 	feature_extractor = None
-	
-	#Set default values
+
 	if len(sys.argv) == 1:
 		feature_extractor = default_feature_extractor
 	else:
@@ -39,9 +33,6 @@ def read_user_input():
 	
 	return feature_extractor
 
-def get_classifier():
-	classifier = SVC_Classifier()
-	return classifier
 
 def get_test_data(feature_extractor):
 	test_data = read_all_grayscale_images(dynamic_input_dir)		
@@ -52,25 +43,21 @@ def get_test_data(feature_extractor):
 	feature_vecs = []
 	f_e = Feature_Extractors()
 	feature_names = None
-	#m = 0
+
 	for im in images:
 
 		b_im = get_binary_image_contours(im)
 		
 		#display_image(b_im)
-		#print b_im 
-		#print "*******************"
 
 		binary_images.append(b_im)
 		
-		#save_image(b_im, str(m)+'.jpg')#delete this
-		#m+=1
 		if feature_extractor == all_features:
-			#print all_features
+
 			(feature_names, features) = f_e.all_feature_extractor(b_im)
 			feature_vecs.append(features)
 		elif feature_extractor == no_moments_features:
-			(feature_names, features) = f_e.all_five_feature_extractor(b_im)
+			(feature_names, features) = f_e.no_moments_feature_extractor(b_im)
 			feature_vecs.append(features)	
 		
 	test_data.set_feature_vectors(array(feature_vecs))
@@ -86,31 +73,21 @@ def get_data(feature_extractor):
 	train_data = None
 	test_data = None
 	
-	#print feature_extractor
-	
 	if feature_extractor == all_features:
-		#do all features
 		data = read_kaggle_training_table(full_table)
-		#print data 
 		
 	elif feature_extractor == no_moments_features:
-		#do no moments features
 		data = read_kaggle_training_table(partial_table)
-		#print data 
 
 	train_data = data
-	#print train_data
 
 	test_data = get_test_data(feature_extractor) 
-
-	
 	
 	return (train_data, test_data)
 
 
 def classify(classifier, train_data, test_data):
 	
-
 	classifier.set_training_data(train_data)
 	classifier.set_testing_data(test_data)
 	
@@ -125,7 +102,6 @@ def display_results(prediction_data):
 	ids = prediction_data.get_table_ids()
 	S = None
 	
-
 	print '------Predictions for images inside ' + dynamic_input_dir + '--------------'
 	for i in range((len(ids)/2)-1):
 		print str(ids[i]) + ': ' + str(predictions[i])
@@ -180,7 +156,6 @@ def display_image(prediction_data):
 		pic2.setPixmap(pixmap22)
 		layout.addWidget(pic2, i+1, 1)
 	
-
 	widget.setWindowTitle("Leaves classification, Computer Vision 2016")
 	widget.setLayout(layout)
 	widget.show()
@@ -191,22 +166,23 @@ def display_input_prameters(feature_extractor):
 	print(chr(27) + "[2J")
 	print '++++++++++++++++++++++++Parameters+++++++++++++++++++++++'
 	if feature_extractor == no_moments_features: 
-		print 'Extracting Features...'
+		print 'Extracting Features without momments.'
 	else: 
-		print 'Extracting Features with moments...'
+		print 'Extracting Features with moments.'
 		
 	print '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+
+
 #----------------------------------Main--------------------------------
 feature_extractor = read_user_input()
 
 display_input_prameters(feature_extractor)
 
-classifier = get_classifier()
+classifier = SVC_Classifier()
 
-(train_data, test_data) = get_data( feature_extractor)
+(train_data, test_data) = get_data(feature_extractor)
 
 prediction_data = classify(classifier, train_data, test_data)
-
 
 display_results(prediction_data)
 display_image(prediction_data)

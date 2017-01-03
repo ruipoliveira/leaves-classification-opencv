@@ -36,9 +36,10 @@ def get_test_data(feature_extractor, dynamic_input_dir):
 		wr = csv.writer(f,delimiter=",")
 
 		for input_dir in alldir: 
-
+			
 			print input_dir
-			test_data = read_all_grayscale_images(input_dir)		
+			test_data = read_all_grayscale_images(input_dir)
+
 			#print test_data
 
 			images = test_data.get_images_binary()
@@ -66,7 +67,7 @@ def get_test_data(feature_extractor, dynamic_input_dir):
 
 				elif feature_extractor == without_moments_features:
 					print "without moments"
-					(feature_names, features) = f_e.all_five_feature_extractor_traning(b_im,id, label)
+					(feature_names, features) = f_e.no_moments_feature_extractor_traning(b_im,id, label)
 					id = id + 1 
 					if first == True : 
 						wr.writerow(feature_names)
@@ -78,7 +79,7 @@ def get_test_data(feature_extractor, dynamic_input_dir):
 		
 
 def display_input_prameters(feature_extractor):
-	#print(chr(27) + "[2J")
+	print(chr(27) + "[2J")
 	print '++++++++++++++++++++++++Parameters+++++++++++++++++++++++'
 	print 'Feature Extractor: ' + feature_extractor
 	print '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'

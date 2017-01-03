@@ -1,10 +1,3 @@
-'''
-File name: Utils.py
-Objective: utility tools for leave classifier
-Author: Andy D. Martinez & Daniela Florit
-Date created: 11/06/2016
-Python Version: 2.7.12
-'''
 import scipy.misc
 from math import *
 from numpy import *
@@ -17,7 +10,6 @@ from sys import*
 import pylab as plt
 
 #---------------------------------------Variables----------------------------------------
-test_kaggle_table = 'Data/Dataset1/data_binary_Kaggle/test.csv'
 
 train_kaggle_table = 'Data/Dataset1/data_binary_Kaggle/nosso_train.csv'
 
@@ -224,24 +216,6 @@ def read_excel_table(table_path):
 	
 	return (headers, rows)
 
-def read_kaggle_test_table(table_path = test_kaggle_table):
-	data = Data()
-	feature_vectors = []
-	ids = []
-	(feature_names, feature_vectors_str) = read_excel_table(table_path)
-
-	feature_names = feature_names[1:len(feature_names)]
-	
-	for row in feature_vectors_str:
-		ids = ids+row[0:1]
-		row = row[1:len(row)]
-		feature_vectors.append([float(feature) for feature in row])
-	
-	data.set_feature_vectors(array(feature_vectors))
-	data.set_feature_names(array(feature_names))
-	data.set_table_ids(array(ids))
-	
-	return data
 
 #Remember that Column 2 contains the classification of the feature vector
 def read_kaggle_training_table(table_path = train_kaggle_table, to_number=None):
@@ -295,53 +269,6 @@ def read_image_color(image_path):
 	image = cv2.imread(image_path)
 	
 	return image
-
-#This function reads all kaggle leaves images in grayscale on the provided path
-#It returns a data object that contains images, ids, labels. If no label
-#in the Kaggle train table (which means they belong to Kaggle testing set)
-#their label will be None
-def read_all_kaggle_gray_scale_images(images_directory_path = kaggle_images_path):
-	files = glob(images_directory_path+'/*.jpg')
-	images = []	
-	ids = []
-	labels = []
-	numeric_labels = []
-	data = Data()
-		
-	
-	#in order to get the labels
-	train_table_data = read_kaggle_training_table(train_kaggle_table)
-
-	for f in files:
-		splited_file_path = f.split('/')
-		file_name = splited_file_path[len(splited_file_path)-1]
-		splited_file_name = file_name.split('.')
-
-		ids.append(splited_file_name[0])
-		images.append(read_image_grayscale(f))
-	
-		labels.append(None)
-		numeric_labels.append(None)
-
-	table_ids = train_table_data.get_table_ids()
-	table_labels = train_table_data.get_labels()
-
-	for i in range(len(ids)):
-		image_id = ids[i]		
-
-		for j in range(len(table_ids)):
-			if table_ids[j] == image_id:
-				labels[i] = table_labels[j]
-				numeric_labels[i] = label_to_number[table_labels[j]]
-				break
-		
-
-	data.set_images_binary(array(images))
-	data.set_table_ids(array(ids))
-	data.set_labels(array(labels))
-	data.set_numeric_labels(array(numeric_labels))
-
-	return data
 
 #This function reads all leaves images in rgb on the provided path
 #It returns a data object with colored images setted
