@@ -6,6 +6,8 @@ from Utils import *
 from FeatureExtractors import *
 import csv
 
+training_tables = 'Data/Training_Tables/'
+
 all_features = 'all'
 without_moments_features = 'nm'
 feature_extractors = [all_features, without_moments_features]
@@ -32,7 +34,7 @@ def get_test_data(feature_extractor, dynamic_input_dir):
 	alldir = [x[0] for x in os.walk(dynamic_input_dir)][1:]
 	id = 1
 	first = True 
-	with open("output_"+feature_extractor+".csv","w") as f:
+	with open(training_tables+"output_"+feature_extractor+".csv","w") as f:
 		wr = csv.writer(f,delimiter=",")
 
 		for input_dir in alldir: 
@@ -79,9 +81,13 @@ def get_test_data(feature_extractor, dynamic_input_dir):
 		
 
 def display_input_prameters(feature_extractor):
-	print(chr(27) + "[2J")
+	os.system('clear')
 	print '++++++++++++++++++++++++Parameters+++++++++++++++++++++++'
-	print 'Feature Extractor: ' + feature_extractor
+	if feature_extractor == no_moments_features: 
+		print 'Extracting Features without momments.'
+	else: 
+		print 'Extracting Features with moments.'
+		
 	print '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
 
 

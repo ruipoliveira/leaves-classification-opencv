@@ -1,10 +1,7 @@
 import warnings
 from Data import Data
 from sklearn import *
-from sklearn.neural_network import MLPClassifier
 
-
-#Use: train() predict()	
 class Classifier(object):
 
 	def __init__(self):

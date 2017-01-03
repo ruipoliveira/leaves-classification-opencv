@@ -15,9 +15,9 @@ feature_extractors = [all_features, no_moments_features]
 
 #Variables
 dynamic_input_dir = 'Test_Leaves'
-training_tables = 'Data/Training_Tables'
-full_table = 'output_all.csv'
-partial_table = 'output_nm.csv'
+training_tables = 'Data/Training_Tables/'
+output_all = training_tables + 'output_all.csv'
+output_nm = training_tables + 'output_nm.csv'
 
 #Default Values
 default_feature_extractor = no_moments_features
@@ -37,7 +37,6 @@ def get_test_data(feature_extractor):
 	test_data = read_all_grayscale_images(dynamic_input_dir)		
 
 	images = test_data.get_images_binary()
-	#print images
 	binary_images = []
 	feature_vecs = []
 	f_e = Feature_Extractors()
@@ -72,10 +71,10 @@ def get_data(feature_extractor):
 	test_data = None
 	
 	if feature_extractor == all_features:
-		data = read_training_table(full_table)
+		data = read_training_table(output_all)
 		
 	elif feature_extractor == no_moments_features:
-		data = read_training_table(partial_table)
+		data = read_training_table(output_nm)
 
 	train_data = data
 
@@ -104,7 +103,6 @@ def display_results(prediction_data):
 	for i in range((len(ids)/2)-1):
 		print str(ids[i]) + ': ' + str(predictions[i])
 	
-
 
 def display_image(prediction_data):
 	predictions = prediction_data.get_predictions()
@@ -161,7 +159,7 @@ def display_image(prediction_data):
 
 
 def display_input_prameters(feature_extractor):
-	print(chr(27) + "[2J")
+	os.system('clear')
 	print '++++++++++++++++++++++++Parameters+++++++++++++++++++++++'
 	if feature_extractor == no_moments_features: 
 		print 'Extracting Features without momments.'
@@ -172,6 +170,7 @@ def display_input_prameters(feature_extractor):
 
 
 #----------------------------------Main--------------------------------
+
 feature_extractor = read_user_input()
 
 display_input_prameters(feature_extractor)
@@ -184,6 +183,5 @@ prediction_data = classify(classifier, train_data, test_data)
 
 display_results(prediction_data)
 display_image(prediction_data)
-
 
 

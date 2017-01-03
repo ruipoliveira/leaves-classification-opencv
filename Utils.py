@@ -1,11 +1,9 @@
-import scipy.misc
 from math import *
 from numpy import *
 import numpy as numpy
 from Data import *
 from glob import *
 import cv2
-from PIL import Image
 from sys import*
 
 #---------------------------------------Variables----------------------------------------
@@ -17,7 +15,6 @@ label_to_number = {'Populus_Nigra': 1, 'Acer_platanoides':2, 'Sorbus aucuparia':
 					'Liquidambar_Styraciflua': 17, 'Quercus_Vulcanica':18}
 
 #-------------------------------------Image Processing Tools-----------------------------
-
 
 def get_cnt(img):
 	ret,thresh = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
@@ -101,7 +98,6 @@ def get_corner_points(img, maxFeat):
 	feature_params = dict( maxCorners = maxFeat, qualityLevel = 0.6, minDistance = 7, blockSize = 7 )
 	corners = cv2.goodFeaturesToTrack(img, mask = None, **feature_params)
 	return corners
-
 
 
 def get_binary_image_contours(imgray):

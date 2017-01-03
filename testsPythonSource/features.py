@@ -60,7 +60,7 @@ def initialProcessingAndGetContours(path):
 
 	return mask
 
-def get_image_area(image):
+def get_image_area(image):	
 	nonzero = count_nonzero(image)
 	return nonzero
 
