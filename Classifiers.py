@@ -51,13 +51,13 @@ class SVC_Classifier(Classifier):
 		self.class_weight = None
 
 	def train(self):
-		print "treinando..."
+		print "train..."
 		feature_vectors_training = self.training_data.get_feature_vectors()
 		labels_training = self.training_data.get_labels()
 		self.clf.fit(feature_vectors_training, labels_training)
 	
 	def predict(self):
-		print "prevendo..."
+		print "predict..."
 		feature_vectors_testing = self.testing_data.get_feature_vectors()
 		predictions = self.clf.predict(feature_vectors_testing)
 		self.testing_data.set_predictions(predictions)

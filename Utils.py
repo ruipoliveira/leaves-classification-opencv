@@ -93,8 +93,6 @@ def get_edge_points(img):
 
 def get_corner_points(img, maxFeat):
 
-	print 'Extracting features in new image...'
-
 	feature_params = dict( maxCorners = maxFeat, qualityLevel = 0.6, minDistance = 7, blockSize = 7 )
 	corners = cv2.goodFeaturesToTrack(img, mask = None, **feature_params)
 	return corners
@@ -155,11 +153,8 @@ def read_training_table(table_path, to_number=None):
 		labels.append(row[1])
 		if to_number == None:
 			numeric_labels.append(label_to_number[row[1]])
-			#print "entrei if"
 		else:
 			numeric_labels.append(to_number[row[1]])
-
-		#print numeric_labels
 
 		ids.append(row[0])
 		row = row[2:len(row)]

@@ -34,6 +34,8 @@ def read_user_input():
 
 
 def get_test_data(feature_extractor):
+
+
 	test_data = read_all_grayscale_images(dynamic_input_dir)		
 
 	images = test_data.get_images_binary()
@@ -43,6 +45,7 @@ def get_test_data(feature_extractor):
 	feature_names = None
 
 	for im in images:
+		print 'Extracting features in image '
 
 		b_im = get_binary_image_contours(im)
 		#display_image(b_im)
