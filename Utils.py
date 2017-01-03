@@ -141,7 +141,7 @@ def read_csv_table(table_path):
 
 
 def read_training_table(table_path, to_number=None):
-	data = Data()
+	data = DataStructure()
 	feature_vectors = []
 	labels = []
 	ids = []
@@ -184,7 +184,7 @@ def read_image_grayscale(image_path):
 def read_all_grayscale_images(images_directory_path):
 	files = glob(images_directory_path+'/*.jpg')
 	images = []	
-	data = Data()
+	data = DataStructure()
 	ids = []
 
 	for f in files:

@@ -68,7 +68,6 @@ def get_test_data(feature_extractor, dynamic_input_dir):
 					wr.writerow(features)
 
 				elif feature_extractor == without_moments_features:
-					print "without moments"
 					(feature_names, features) = f_e.no_moments_feature_extractor_traning(b_im,id, label)
 					id = id + 1 
 					if first == True : 

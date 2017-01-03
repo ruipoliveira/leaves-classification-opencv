@@ -1,5 +1,5 @@
 import warnings
-from Data import Data
+from Data import * 
 from sklearn import *
 
 class Classifier(object):
@@ -26,12 +26,9 @@ class Classifier(object):
 	#returns testing_data with set predictions!!
 	def predict(self): raise NotImplementedError('Override me')
 	
-	#TODO: predict(feature_vector) where feature_vector was not in testing_data
-
 
 #-------------------------Implement Classifiers-----------------------------------
 
-#SVM implementation using svm.SVC()
 class SVC_Classifier(Classifier):
 	def __init__(self):
 		super(SVC_Classifier, self).__init__()

@@ -39,7 +39,7 @@ def get_test_data(feature_extractor):
 	images = test_data.get_images_binary()
 	binary_images = []
 	feature_vecs = []
-	f_e = Feature_Extractors()
+	f_e = FeatureExtractors()
 	feature_names = None
 
 	for im in images:
@@ -65,7 +65,7 @@ def get_test_data(feature_extractor):
 		
 			
 
-def get_data(feature_extractor):
+def get_data_and_classify(classifier, feature_extractor):
 	data = None
 	train_data = None
 	test_data = None
@@ -79,11 +79,6 @@ def get_data(feature_extractor):
 	train_data = data
 
 	test_data = get_test_data(feature_extractor) 
-	
-	return (train_data, test_data)
-
-
-def classify(classifier, train_data, test_data):
 	
 	classifier.set_training_data(train_data)
 	classifier.set_testing_data(test_data)
@@ -177,9 +172,7 @@ display_input_prameters(feature_extractor)
 
 classifier = SVC_Classifier()
 
-(train_data, test_data) = get_data(feature_extractor)
-
-prediction_data = classify(classifier, train_data, test_data)
+prediction_data = get_data_and_classify(classifier, feature_extractor)
 
 display_results(prediction_data)
 display_image(prediction_data)

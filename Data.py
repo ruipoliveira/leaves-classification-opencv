@@ -1,6 +1,6 @@
 from random import *
 
-class Data:
+class DataStructure:
 	def __init__(self):
 		self.length = 0
 		self.feature_vectors = []

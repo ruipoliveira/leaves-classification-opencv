@@ -2,7 +2,7 @@ from Data import *
 from Utils import *
 import cv2
 
-class Feature_Extractors:
+class FeatureExtractors:
 
 	def moments_feature_extractor(self, image):
 		moments = get_moments(image)
