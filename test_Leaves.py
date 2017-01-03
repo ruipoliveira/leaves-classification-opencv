@@ -22,7 +22,6 @@ partial_table = 'output_nm.csv'
 #Default Values
 default_feature_extractor = no_moments_features
 
-
 def read_user_input():
 	feature_extractor = None
 
@@ -47,9 +46,8 @@ def get_test_data(feature_extractor):
 	for im in images:
 
 		b_im = get_binary_image_contours(im)
-		
 		#display_image(b_im)
-
+		
 		binary_images.append(b_im)
 		
 		if feature_extractor == all_features:
@@ -74,10 +72,10 @@ def get_data(feature_extractor):
 	test_data = None
 	
 	if feature_extractor == all_features:
-		data = read_kaggle_training_table(full_table)
+		data = read_training_table(full_table)
 		
 	elif feature_extractor == no_moments_features:
-		data = read_kaggle_training_table(partial_table)
+		data = read_training_table(partial_table)
 
 	train_data = data
 

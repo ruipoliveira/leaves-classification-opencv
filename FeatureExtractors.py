@@ -46,7 +46,6 @@ class Feature_Extractors:
 
 	def corner_count_feature_extractor(self, image):
 		corners = get_corner_points(image, 100)
-		#print corners
 		features = array([len(corners)])
 		feature_names = array(['number_corners'])
 		return (feature_names, features)
@@ -90,7 +89,20 @@ class Feature_Extractors:
 		feature_names = array(list(feature_names1)+list(feature_names2)+list(feature_names4)+list(feature_names4)+list(feature_names5))
 		
 		return (feature_names, features)
-	
+
+	def no_moments_feature_extractor_traning(self, image,id, label):
+		(feature_names1, features1) = self.corner_count_feature_extractor(image)
+		(feature_names2, features2) = self.length_width_ratio_feature_extractor(image)
+		(feature_names3, features3) = self.perimeter_area_ratio_feature_extractor(image)
+		(feature_names4, features4) = self.ratio_of_areas_feature_extractor(image)
+		(feature_names5, features5) = self.solidity_feature_extractor(image)
+		
+		features = array(list([id, label])+list(features1)+list(features2)+list(features3)+list(features4)+list(features5))
+		feature_names = array( list(["id","label"])+list(feature_names1)+list(feature_names2)+list(feature_names4)+list(feature_names4)+list(feature_names5))
+		
+		return (feature_names, features)
+
+
 	def all_feature_extractor(self, image):
 		(feature_names1, features1) = self.corner_count_feature_extractor(image)
 		(feature_names2, features2) = self.length_width_ratio_feature_extractor(image)
@@ -125,16 +137,4 @@ class Feature_Extractors:
 		list(feature_names4) + list(feature_names5) + list(feature_names6) + list(feature_names7))
 
 		return (feature_names, features)
-
 	
-	def no_moments_feature_extractor_traning(self, image,id, label):
-		(feature_names1, features1) = self.corner_count_feature_extractor(image)
-		(feature_names2, features2) = self.length_width_ratio_feature_extractor(image)
-		(feature_names3, features3) = self.perimeter_area_ratio_feature_extractor(image)
-		(feature_names4, features4) = self.ratio_of_areas_feature_extractor(image)
-		(feature_names5, features5) = self.solidity_feature_extractor(image)
-		
-		features = array(list([id, label])+list(features1)+list(features2)+list(features3)+list(features4)+list(features5))
-		feature_names = array( list(["id","label"])+list(feature_names1)+list(feature_names2)+list(feature_names4)+list(feature_names4)+list(feature_names5))
-		
-		return (feature_names, features)

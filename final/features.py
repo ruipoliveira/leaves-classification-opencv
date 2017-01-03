@@ -23,7 +23,7 @@ def get_edge_points(img):
 	return edges
 
 def get_solidity(img):
-	#print "IMAGEEEE! get_solidity "
+
 	area = cv2.contourArea(img)
 	hull = cv2.convexHull(img)
 	hull_area = cv2.contourArea(hull)

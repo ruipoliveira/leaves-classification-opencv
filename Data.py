@@ -21,7 +21,6 @@ class Data:
 		return self.feature_vectors
 	
 	
-	#labels = [l1,l2,...,ln]
 	def set_labels(self, labels):
 		self.length = len(labels)
 		self.labels = labels
@@ -60,7 +59,6 @@ class Data:
 	def get_images_color(self):
 		return self.images_color
 	
-	#feature names = [feature_1_name_str, feature_2_name_str, ...]	
 	def set_feature_names(self, feature_names):
 		self.length = len(feature_names)
 		self.feature_names = feature_names

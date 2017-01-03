@@ -10,17 +10,14 @@ from sys import*
 
 #---------------------------------------Variables----------------------------------------
 
-
-label_to_number = {'Populus_Nigra': 69, 'Acer_platanoides':222, 'Sorbus aucuparia': 1211, 'Quercus_Rubra': 7, 'Ginkgo_Biloba': 51, 'Acer_Capillipes' : 2,\
-					'Tilia_Tomentosa': 3, 'Fagus_Sylvatica': 15, 'Olea_Europaea':1, 'Quercus_Shumardii':11, \
- 					'Prunus_Avium': 43, 'Ilex_Aquifolium': 61, 'Castanea_Sativa': 44, 'Acer_Circinatum' : 12, \
-					'Acer_Platanoids': 24, 'Acer_Palmatum': 17, 'Liquidambar_Styraciflua': 52, 'Quercus_Vulcanica':122}
-
-
+label_to_number = {'Populus_Nigra': 1, 'Acer_platanoides':2, 'Sorbus aucuparia': 3, 'Quercus_Rubra': 4, 
+					'Ginkgo_Biloba': 5, 'Acer_Capillipes' : 6,'Tilia_Tomentosa': 7, 'Fagus_Sylvatica': 8, 
+					'Olea_Europaea':9, 'Quercus_Shumardii':10, 'Prunus_Avium': 11, 'Ilex_Aquifolium': 12, 
+					'Castanea_Sativa': 13, 'Acer_Circinatum' : 14, 'Acer_Platanoids': 15, 'Acer_Palmatum': 16,
+					'Liquidambar_Styraciflua': 17, 'Quercus_Vulcanica':18}
 
 #-------------------------------------Image Processing Tools-----------------------------
-def save_image(arr, name):
-	scipy.misc.imsave(name, arr)	
+
 
 def get_cnt(img):
 	ret,thresh = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
@@ -33,8 +30,7 @@ def get_moments(img):
 	return cv2.moments(get_cnt(img))
 
 def get_solidity(img):
-	#print "IMAGEEEE! get_solidity "
-	#print img
+
 	cnt = get_cnt(img)
 	area = cv2.contourArea(cnt)
 	hull = cv2.convexHull(cnt)
@@ -81,7 +77,6 @@ def max_y_diff(img):
 	return y_diff
 
 
-
 def display_image(img):
 	cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
 	cv2.imshow('Image', img)
@@ -102,37 +97,18 @@ def get_edge_points(img):
 def get_corner_points(img, maxFeat):
 
 	print 'Extracting features in new image...'
-	#print maxFeat
 
 	feature_params = dict( maxCorners = maxFeat, qualityLevel = 0.6, minDistance = 7, blockSize = 7 )
 	corners = cv2.goodFeaturesToTrack(img, mask = None, **feature_params)
 	return corners
-	
-	'''
-	for point in corners:
-		x, y = point.ravel()
-	'''
-
-#make sure that img was read as a grayscale image
-def get_binary_image(img):
 
 
-	#img = cv2.medianBlur(img,5)
-	#ret,th1 = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
-	return img #cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
-	
 
 def get_binary_image_contours(imgray):
-	#image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 45, 0)    
 
-	#display_image(imgray)
 	ret,thresh = cv2.threshold(imgray,127,255,cv2.THRESH_BINARY_INV)
-	#display_image(thresh)
 	#se = ones((15,15), dtype='uint8')
 	#image_close = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, se)
-	
-	#display_image(image_close)
-
 	mask = zeros(imgray.shape[:2], uint8)
 
 	image,contours, hierarchy = cv2.findContours(thresh,1,2)
@@ -142,84 +118,16 @@ def get_binary_image_contours(imgray):
 	#display_image(mask)
 	return mask
 
-'''
-	display_image(imgray)
-
-	ret,thresh = cv2.threshold(imgray,127,255,1)
-
-
-	display_image(thresh)
-
-	image,contours, hierarchy = cv2.findContours(thresh,1,2)
-
-
-	display_image(image)
-'''
-	#print len(image)
-	#contours=contours[1::]
-	#mask = zeros(imgray.shape[:2], uint8)
-
-	#cv2.drawContours(mask,contours,-1,(255,0,0),3)
-
-	#display_image(mask)
-
-
-	# Perform morphology
-	#se = ones((4,4), dtype='uint8')
-	#image_close = cv2.morphologyEx(image, cv2.MORPH_CLOSE, se)
-
-
-
-	#print "MASK"
-	#print mask
-
-
-	#return mask
-
 
 def get_image_area(image):
 	nonzero = count_nonzero(image)
 	return nonzero
 
-#-------------------------------------File System Processing Tools-----------------------
+def read_csv_table(table_path):
 
-#headers is a list or numpy array
-#rows is a list of lists
-#file_name does not contain the .csv extension
-def build_excel_file(rows, file_name, headers=None):
-	formated_string = ''
-
-	if headers != None:
-		for h in headers:
-			formated_string = formated_string + str(h)+','
-
-		formated_string = formated_string[0:len(formated_string)-1]
-		formated_string+='\n'
-
-	for row in rows:
-		for e in row:
-			formated_string += str(e)+','
-		formated_string = formated_string[0:len(formated_string)-1]
-		formated_string+='\n'
-
-	f = open(file_name+'.csv', 'w')
-	f.write(formated_string)
-	f.close()
-
-	
-	 
-
-#table_path is the path to the excel_table
-#return a Data object with feature vectors and labels included
-def read_excel_table(table_path):
-	#feature_names = []
-	#feature_vectors = []
-	#data = Data()
 	headers = []
 	rows = []
-	
 	f = open(table_path, 'r')
-	
 	for line in f:
 		line = line.replace('\n', '')
 		splited_line = line.split(',')
@@ -229,25 +137,20 @@ def read_excel_table(table_path):
 		if len(headers) == 0:
 			headers = splited_line
 		else:
-			#feature_vectors.append([float(feature) for feature in splited_line])
 			rows.append(splited_line)
-	
 	f.close()
-	
-	#data.set_feature_vectors(array(feature_vectors))
-	#data.set_feature_names(array(feature_names))
 	
 	return (headers, rows)
 
 
-#Remember that Column 2 contains the classification of the feature vector
-def read_kaggle_training_table(table_path, to_number=None):
+
+def read_training_table(table_path, to_number=None):
 	data = Data()
 	feature_vectors = []
 	labels = []
 	ids = []
 	numeric_labels = []
-	(feature_names, feature_vectors_str) = read_excel_table(table_path)
+	(feature_names, feature_vectors_str) = read_csv_table(table_path)
 
 	feature_names = feature_names[2:len(feature_names)]
 
@@ -259,8 +162,6 @@ def read_kaggle_training_table(table_path, to_number=None):
 			#print "entrei if"
 		else:
 			numeric_labels.append(to_number[row[1]])
-			#print "entrei elese"
-
 
 		#print numeric_labels
 
@@ -275,39 +176,15 @@ def read_kaggle_training_table(table_path, to_number=None):
 	data.set_table_ids(array(ids))
 	data.set_numeric_labels(array(numeric_labels))	
 
-
 	return data
 
 
 def read_image_grayscale(image_path):
 	image = cv2.imread(image_path)
 	image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-	
 	return image
 	
 
-
-def read_image_color(image_path):
-	image = cv2.imread(image_path)
-	
-	return image
-
-#This function reads all leaves images in rgb on the provided path
-#It returns a data object with colored images setted
-def read_all_color_images(images_directory_path):
-	files = glob(images_directory_path+'/*.jpg')
-	images = []	
-	data = Data()
-
-	for f in files:
-		images.append(read_image_color(f))
-	
-
-	data.set_images_color(array(images))
-	return data
-
-#This function reads all leaves images in rgb on the provided path
-#It returns a data object with colored images setted
 def read_all_grayscale_images(images_directory_path):
 	files = glob(images_directory_path+'/*.jpg')
 	images = []	
