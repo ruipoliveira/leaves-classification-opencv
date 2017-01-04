@@ -1,2 +1,6 @@
-# leaves-classification-opencv
-Projecto de Visão por Computador 2016
+# leaves classification opencv
+
+Computer Vision Project 
+
+
+* [Report](https://github.com/ruipoliveira/leaves-classification-opencv) 
