@@ -97,7 +97,7 @@ def display_results(prediction_data):
 	ids = prediction_data.get_table_ids()
 	S = None
 	
-	print '+++++++ Previsões' + dynamic_input_dir + ' +++++++ '
+	print '+++++++ Previsoes' + dynamic_input_dir + ' +++++++ '
 	for i in range((len(ids)/2)-1):
 		print str(ids[i]) + ': ' + str(predictions[i])
 	
