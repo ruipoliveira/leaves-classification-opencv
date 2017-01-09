@@ -15,7 +15,7 @@ Computer Vision Project
 #### Output
 
 
-![alt tag](blob:http://imgur.com/6e4fd6bc-8d78-400b-9d5f-252a5e89b9c6)
+![alt tag](http://i.imgur.com/OCJ8BzH.png)
 
 
 #### Report and presentation
