@@ -12,15 +12,14 @@ Computer Vision Project
 * Scikit-learn python
 
 
-#### Output
-
+#### Output Sample
 
 ![alt tag](http://i.imgur.com/OCJ8BzH.png)
 
 
 #### Report and presentation
 * [report portuguese version (pdf)](https://github.com/ruipoliveira/leaves-classification-opencv/blob/master/docs/VC1617_report_project.pdf) 
-* [presentation (pdf)](https://github.com/ruipoliveira)
+* [presentation (pdf)](https://github.com/ruipoliveira/leaves-classification-opencv/blob/master/docs/VC1617_presentation.pdf)
 
 
 #### Authors
